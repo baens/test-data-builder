@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+            exclude "**/*Tests.java"
+        }
+    }
+    test {
+        java {
+            srcDirs = ['src/java']
+            include "**/*Tests.java"
+        }
+    }
+}
+
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.2.0'
+}
