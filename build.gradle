@@ -1,6 +1,12 @@
 plugins {
     id 'java'
+    id 'maven'
+    id 'signing'
 }
+
+group = "net.baens"
+archivesBaseName = "test-data-builder"
+version = "1.0.1"
 
 sourceSets {
     main {
@@ -25,3 +31,67 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.2.0'
 }
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'Test Data Builder'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'A data builder for unit tests'
+                url 'https://github.com/baens/test-data-builder'
+
+                scm {
+                    connection 'scm:git:git@github.com:baens/test-data-builder.git'
+                    developerConnection 'scm:git:git@github.com:baens/test-data-builder.git'
+                    url 'https://github.com/baens/test-data-builder'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'baens'
+                        name 'Erik Lindblom'
+                        email 'erik@baens.net'
+                    }
+                }
+            }
+        }
+    }
+}
+
