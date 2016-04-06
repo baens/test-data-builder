@@ -3,7 +3,7 @@ package net.baens.testdatabuilder;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
-class Builder<T> {
+public class Builder<T> {
     private final Class<T> _type;
     private final Object[] _parameters;
     private final Object[][] _varParameters;
