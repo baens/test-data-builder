@@ -3,6 +3,10 @@ package net.baens.testdatabuilder;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 
@@ -29,8 +33,14 @@ class Utils {
             return new String("default");
         }else if(type.equals(java.sql.Timestamp.class)) {
             return new Timestamp(0);
-        }else if(type.equals(java.sql.Date.class)){
+        }else if(type.equals(java.sql.Date.class)) {
             return new java.sql.Date(0);
+        }else if(type.equals(OffsetDateTime.class)) {
+            return OffsetDateTime.now();
+        }else if(type.equals(ZonedDateTime.class)) {
+            return ZonedDateTime.now();
+        }else if(type.equals(Instant.class)){
+            return Instant.now();
         }else if(type.equals(UUID.class)) {
             return UUID.randomUUID();
         }else if(type.isEnum()) {

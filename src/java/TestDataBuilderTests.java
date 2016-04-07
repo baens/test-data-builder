@@ -2,6 +2,8 @@ package net.baens.testdatabuilder;
 
 import org.junit.Test;
 
+import java.time.OffsetDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestDataBuilderTests {
@@ -44,7 +46,7 @@ public class TestDataBuilderTests {
     @Test
     public void intField_reqpestsSequences(){
         Iterable<MockData> data = TestDataBuilder.create(MockData.class)
-            .set(TestDataBuilder.fieldOf(MockData.class).testIntField,2,4,6)
+            .set(TestDataBuilder.fieldOf(MockData.class).testIntField, 2, 4, 6)
             .build(6);
 
         assertThat(data).extracting(d -> d.testIntField)
@@ -54,10 +56,12 @@ public class TestDataBuilderTests {
     class MockData {
         public final int testIntField;
         public final String testStringField;
+        public final OffsetDateTime testTime;
 
-        public MockData(int testIntField,String testStringField){
+        public MockData(int testIntField, String testStringField, OffsetDateTime time){
             this.testIntField = testIntField;
             this.testStringField = testStringField;
+            this.testTime = time;
         }
     }
 }
