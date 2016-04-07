@@ -8,6 +8,9 @@ group = "net.baens"
 archivesBaseName = "test-data-builder"
 version = "1.0.1"
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 sourceSets {
     main {
         java {
@@ -94,4 +97,3 @@ uploadArchives {
         }
     }
 }
-
